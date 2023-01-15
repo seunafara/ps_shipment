@@ -57,10 +57,14 @@ const assignShipments = (destinations, drivers) => {
 			const score = getScore(destination, driver)
       const dateDiff = moment().diff(driverLog[driver], "days") >= 1
 
-			if (score > bestScore && (!driverLog[driver] || dateDiff)) {
-				bestDriver = driver
-				bestScore = score
-			}
+			if (!driverLog[driver] || dateDiff){
+        if (score > bestScore) {
+					bestDriver = driver
+					bestScore = score
+				}
+      } else {
+        console.log(`Driver ${driver} has already been assigned`);
+      }
 		}
 		if (bestDriver) {
 			totalScore += bestScore
