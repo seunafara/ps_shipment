@@ -2,7 +2,7 @@ const fs = require("fs")
 const moment = require("moment")
 
 const driverLog = {
-	// "Ada Doe": new Date(),
+	"New Driver": new Date(),
 }
 
 /**
@@ -66,7 +66,9 @@ const assignShipments = (destinations, drivers) => {
 			totalScore += bestScore
 			matches[destination] = bestDriver
 			driverLog[bestDriver] = moment()
-		}
+		} else {
+      assignShipments([destination], drivers)
+    }
 	}
 	return { totalScore, matches }
 }
