@@ -1,6 +1,9 @@
 const fs = require("fs")
 const moment = require("moment")
-const driverLog = {}
+
+const driverLog = {
+	// "Ada Doe": new Date(),
+}
 
 /**
 
@@ -43,6 +46,7 @@ const getScore = (destination, driver) => {
 @desc - Matches shipment destinations with drivers in a way that maximizes the total suitability score over the set of drivers.
 @returns {object} An object containing total suitability score and shipment destination - driver matches
 */
+
 const assignShipments = (destinations, drivers) => {
 	let totalScore = 0
 	const matches = {}
@@ -51,24 +55,17 @@ const assignShipments = (destinations, drivers) => {
 		let bestScore = 0
 		for (const driver of drivers) {
 			const score = getScore(destination, driver)
-			if (score > bestScore) {
+      const dateDiff = moment().diff(driverLog[driver], "days") >= 1
+
+			if (score > bestScore && (!driverLog[driver] || dateDiff)) {
 				bestDriver = driver
 				bestScore = score
 			}
 		}
-		if (
-			!driverLog[bestDriver] ||
-			moment().diff(driverLog[bestDriver], "days") >= 1
-		) {
-			// driver has not been assigned today or not assigned at all
+		if (bestDriver) {
 			totalScore += bestScore
 			matches[destination] = bestDriver
 			driverLog[bestDriver] = moment()
-		} else {
-			// driver already assigned today
-			// re-assign the shipment to a new driver
-			drivers.splice(drivers.indexOf(bestDriver), 1)
-			assignShipments([destination], drivers)
 		}
 	}
 	return { totalScore, matches }
