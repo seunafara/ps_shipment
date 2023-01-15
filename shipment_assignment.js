@@ -11,18 +11,14 @@ const driverLog = {}
 */
 
 const getBaseScore = (destination, driver) => {
-	const vowels = "aeiou"
-	const driverName = driver.toLowerCase()
-	const destName = destination.toLowerCase()
-	const driverVowels = driverName
+  const destName = destination.toLowerCase()
+	const driverVowels = driver
+		.toLowerCase()
 		.split("")
-		.reduce((acc, letter) => acc + (vowels.includes(letter) ? 1 : 0), 0)
-	const driverConsonants = driverName.length - driverVowels
-	if (destName.length % 2 === 0) {
-		return 1.5 * driverVowels
-	} else {
-		return driverConsonants
-	}
+		.filter((char) => "aeiou".includes(char)).length
+	return destName.length % 2 === 0
+		? 1.5 * driverVowels
+		: driver.length - driverVowels
 }
 
 /**
