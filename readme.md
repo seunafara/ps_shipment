@@ -18,8 +18,9 @@ The program prints the total suitability score and a match between shipment dest
 
 1. Clone the repository or download the javascript file
 2. Open a command prompt and navigate to the directory where the file is located
-3. Create two files, the first containing the street addresses of the shipment destinations, and the second containing the names of the drivers
-4. Run the command `node shipment_assignment.js [destinations_file] [drivers_file]`
+3. Run `npm install` to add required dependencies
+4. Create two files, the first containing the street addresses of the shipment destinations, and the second containing the names of the drivers
+5. Run the command `node shipment_assignment.js [destinations_file] [drivers_file]`
 
     - Replace `[destinations_file]` with the file name of the destinations file
 

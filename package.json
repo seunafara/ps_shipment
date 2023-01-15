@@ -1,0 +1,23 @@
+{
+  "name": "platform-science",
+  "version": "1.0.0",
+  "description": "This program assigns shipment destinations to drivers in a way that maximizes the total suitability score over the set of drivers.",
+  "main": "shipment_assignment.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seunafara/ps_shipment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seunafara/ps_shipment/issues"
+  },
+  "homepage": "https://github.com/seunafara/ps_shipment#readme",
+  "dependencies": {
+    "moment": "^2.29.4"
+  }
+}
