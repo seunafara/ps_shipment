@@ -1,9 +1,15 @@
 const fs = require("fs")
 const moment = require("moment")
 
-const driverLog = {
-	"New Driver": new Date(),
-}
+const driversLog = {}
+
+fs.readFile('driversLog.txt', "utf-8", (err, logs) => {
+  if (err) throw err
+  logs = logs.trim().split("\n")
+  for(driver of logs){
+    driversLog[driver] = new Date()
+  }
+})
 
 /**
 
@@ -55,9 +61,9 @@ const assignShipments = (destinations, drivers) => {
 		let bestScore = 0
 		for (const driver of drivers) {
 			const score = getScore(destination, driver)
-      const dateDiff = moment().diff(driverLog[driver], "days") >= 1
+      const dateDiff = moment().diff(driversLog[driver], "days") >= 1
 
-			if (!driverLog[driver] || dateDiff){
+			if (!driversLog[driver] || dateDiff){
         if (score > bestScore) {
 					bestDriver = driver
 					bestScore = score
@@ -69,7 +75,7 @@ const assignShipments = (destinations, drivers) => {
 		if (bestDriver) {
 			totalScore += bestScore
 			matches[destination] = bestDriver
-			driverLog[bestDriver] = moment()
+			driversLog[bestDriver] = moment()
 		} else {
       assignShipments([destination], drivers)
     }
@@ -96,7 +102,6 @@ const driversFile = process.argv[3]
 const run = () =>
 	fs.readFile(destinationsFile, "utf-8", (err, destinations) => {
 		if (err) throw err
-
 		fs.readFile(driversFile, "utf-8", (err, drivers) => {
 			if (err) throw err
 			destinations = destinations.trim().split("\n")
