@@ -62,7 +62,7 @@ const assignShipments = (destinations, drivers) => {
 		for (const driver of drivers) {
 			const score = getScore(destination, driver)
       const dateDiff = moment().diff(driversLog[driver], "days") >= 1
-			if (score > bestScore && !driversLog[driver] || dateDiff){
+			if (score > bestScore && (!driversLog[driver] || dateDiff)){
 					bestDriver = driver
 					bestScore = score
       }
