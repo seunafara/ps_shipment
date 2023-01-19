@@ -3,12 +3,12 @@ const moment = require("moment")
 
 const driversLog = {}
 
-fs.readFile('driversLog.txt', "utf-8", (err, logs) => {
-  if (err) throw err
-  logs = logs.trim().split("\n")
-  for(driver of logs){
-    driversLog[driver] = new Date()
-  }
+fs.readFile("driversLog.txt", "utf-8", (err, logs) => {
+	if (err) throw err
+	logs = logs.trim().split("\n")
+	for (driver of logs) {
+		driversLog[driver] = new Date()
+	}
 })
 
 /**
@@ -20,11 +20,12 @@ fs.readFile('driversLog.txt', "utf-8", (err, logs) => {
 */
 
 const getBaseScore = (destination, driver) => {
-  const destName = destination.toLowerCase()
+	const destName = destination.toLowerCase()
+  driver = driver.toLowerCase().replace(/\s/g, "")
 	const driverVowels = driver
-		.toLowerCase()
 		.split("")
 		.filter((char) => "aeiou".includes(char)).length
+  
 	return destName.length % 2 === 0
 		? 1.5 * driverVowels
 		: driver.length - driverVowels
